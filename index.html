@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radio EPHEM7RE – Participation Libre</title>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --blue: #1a7fd4;
+    --blue: #056ceb;
     --blue-dark: #1568b5;
-    --pink: #f472b6;
+    --pink: #ff82ef;
     --black: #0d0d0d;
     --white: #ffffff;
     --mid: rgba(0,0,0,0.25);
-    --rec: #e74c3c;
-    --bg: #1a7fd4;
+    --rec: #ed3c3c;
+    --bg: #3fabff;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +22,7 @@
   body {
     background: var(--bg);
     color: var(--white);
-    font-family: 'Nunito', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Space Mono', monospace;
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -42,7 +42,7 @@
     color: var(--white);
     border: none;
     padding: 8px 18px;
-    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-family: 'Space Mono', monospace;
     font-size: 12px;
     cursor: pointer;
     letter-spacing: 0.1em;
@@ -56,40 +56,68 @@
     position: relative;
     padding: 60px 0 30px;
     text-align: center;
-    overflow: hidden;
+    overflow: visible;
   }
-  .header-waves {
-    position: absolute;
+  .header-waves { display: none; }
+
+  /* Full-page wave canvas */
+  #wave-canvas {
+    position: fixed;
     inset: 0;
-    opacity: 0.08;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 8px,
-      #fff 8px,
-      #fff 9px
-    );
-    animation: wavescroll 6s linear infinite;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.13;
   }
-  @keyframes wavescroll { from{transform:translateY(0)} to{transform:translateY(17px)} }
+
+  /* All content above canvas */
+  .lang-bar, header, .intro, .form-wrap, .success-screen, .progress-bar-wrap {
+    position: relative;
+    z-index: 1;
+  }
 
   .header-logo {
     position: relative;
     width: min(680px, 92vw);
     margin: 0 auto 20px;
     border-radius: 8px;
-    overflow: hidden;
-    border: 3px solid rgba(255,255,255,0.3);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.25), 5px 5px 0 var(--pink);
+    overflow: visible;
+    display: inline-block;
   }
-  .header-logo img { width: 100%; display: block; }
+  .header-logo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    box-shadow: 0 20px 80px 10px rgba(0,0,0,0.45), 0 4px 24px rgba(0,0,0,0.3);
+    z-index: 0;
+  }
+  .header-logo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    border: 3px solid rgba(0,96,255,1);
+    outline: 10px solid var(--pink);
+    outline-offset: -3px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .header-logo img {
+    width: 100%;
+    display: block;
+    border-radius: 6px;
+    position: relative;
+    z-index: 1;
+  }
 
   .header-sub {
-    font-family: 'Courier Prime', monospace;
-    font-size: 12px;
-    letter-spacing: 0.25em;
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.28em;
     color: var(--pink);
-    margin-top: 4px;
+    margin-top: 32px;
     position: relative;
     text-transform: uppercase;
   }
@@ -105,13 +133,15 @@
     border-left: 3px solid var(--pink);
     padding: 20px 24px;
     border-radius: 0 8px 8px 0;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,144,255,1);
+    font-family: 'Nunito', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.9);
+    line-height: 1.5;
+    color: rgba(255,255,255,1);
+    text-align: justify;
   }
   .intro-box p + p { margin-top: 10px; }
-  .intro-emojis { text-align: center; font-size: 22px; margin-top: 16px; letter-spacing: 6px; }
+  .intro-emojis { text-align: center; font-size: 26px; margin-top: 20px; letter-spacing: 5px; }
 
   /* Form */
   .form-wrap {
@@ -132,30 +162,22 @@
     gap: 14px;
     margin-bottom: 12px;
   }
-  .q-num {
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--pink);
-    letter-spacing: 0.15em;
-    white-space: nowrap;
-    padding-top: 2px;
-    min-width: 32px;
-  }
+  
   .q-label {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.55;
     color: var(--white);
+    text-align: justify;
   }
 
   input[type="text"], input[type="date"], textarea, select {
     width: 100%;
-    background: rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(0,144,255,1);
+    border: 1px solid rgba(255,255,255,0.4);
     border-radius: 6px;
     color: var(--white);
-    font-family: 'Nunito', Helvetica, Arial, sans-serif;
+    font-family: 'Space Mono', monospace;
     font-size: 14px;
     padding: 12px 16px;
     outline: none;
@@ -166,7 +188,7 @@
     border-color: var(--pink);
     background: rgba(0,0,0,0.3);
   }
-  input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+  input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.4); }
   textarea { resize: vertical; min-height: 80px; }
 
   /* Date input */
@@ -194,7 +216,7 @@
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 8px;
     padding: 16px;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,144,255,1);
   }
   .rec-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .btn-rec {
@@ -204,7 +226,7 @@
     padding: 10px 20px;
     border-radius: 6px;
     border: none;
-    font-family: 'Nunito', Helvetica, Arial, sans-serif;
+    font-family: 'Space Mono', monospace;
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
@@ -307,7 +329,7 @@
     color: var(--white);
     border: none;
     padding: 16px 48px;
-    font-family: 'Nunito', Helvetica, Arial, sans-serif;
+    font-family: 'Syne', sans-serif;
     font-size: 16px;
     font-weight: 800;
     letter-spacing: 0.05em;
@@ -347,7 +369,7 @@
   .success-screen.visible { display: block; }
   .success-emojis { font-size: 40px; letter-spacing: 8px; margin-bottom: 24px; }
   .success-title {
-    font-family: 'Nunito', Helvetica, sans-serif;
+    font-family: 'Syne', sans-serif;
     font-size: 32px;
     font-weight: 800;
     color: var(--white);
@@ -382,8 +404,9 @@
 
   .section-label {
     font-family: 'Courier Prime', monospace;
-    font-size: 10px;
-    letter-spacing: 0.25em;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     color: var(--pink);
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -399,12 +422,25 @@
     background: rgba(244,114,182,0.35);
   }
 
+  .q-num {
+    font-family: 'Courier Prime', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--pink);
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+    padding-top: 2px;
+    min-width: 36px;
+  }
+
   @media (max-width: 480px) {
     .rec-controls { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
 <body>
+
+<canvas id="wave-canvas"></canvas>
 
 <div class="progress-bar-wrap"><div class="progress-bar" id="progress"></div></div>
 
@@ -418,14 +454,14 @@
   <div class="header-logo">
     <img src="visuel.jpg" alt="Radio EPHEM7RE">
   </div>
-  <p class="header-sub" data-fr="Participation Libre 🕊" data-en="Open Participation 🕊">Participation Libre 🕊</p>
+  <p class="header-sub" data-fr="Participation Libre 🕊" data-en="Open Participation 🕊"><strong>Participation Libre 🕊</strong></p>
 </header>
 
 <div class="intro">
   <div class="intro-box">
-    <p data-fr="Ce formulaire a pour but de collecter les matériaux qui constitueront la base éditoriale de Radio EPHEM7RE, une web station centrée sur le thème de la Méditerranée. Créée, gérée et alimentée par Émilie Hanak et Thomas Lefevre, la radio sera active du 18 au 24 mai 2026, dans le contexte du lancement de La Saison Méditerranée."
-       data-en="This form aims to collect the materials that will form the editorial foundation of Radio EPHEM7RE, a web station centred on the theme of the Mediterranean. Created, managed and fed by Émilie Hanak and Thomas Lefevre, the radio will be active from May 18 to 24, 2026, in the context of the launch of La Saison Méditerranée.">
-      Ce formulaire a pour but de collecter les matériaux qui constitueront la base éditoriale de Radio EPHEM7RE, une web station centrée sur le thème de la Méditerranée. Créée, gérée et alimentée par Émilie Hanak et Thomas Lefevre, la radio sera active du 18 au 24 mai 2026, dans le contexte du lancement de La Saison Méditerranée.
+    <p data-fr="Ce formulaire a pour but de collecter les matériaux qui constitueront la base éditoriale de Radio EPHEM7RE, une web station centrée sur le thème de la Méditerranée. Créée, gérée et alimentée par <strong>Émilie Hanak</strong> et <strong>Thomas Lefevre</strong>, la radio sera active du 18 au 24 mai 2026, dans le contexte du lancement de <em>La Saison Méditerranée</em>."
+       data-en="This form aims to collect the materials that will form the editorial foundation of Radio EPHEM7RE, a web station centred on the theme of the Mediterranean sea. Created, managed and fed by <strong>Émilie Hanak</strong> and <strong>Thomas Lefevre</strong>, the radio will be active from May 18 to 24, 2026, in the context of the launch of <em>La Saison Méditerranée</em>.">
+      Ce formulaire a pour but de collecter les matériaux qui constitueront la base éditoriale de Radio EPHEM7RE, une web station centrée sur le thème de la Méditerranée. Créée, gérée et alimentée par <strong>Émilie Hanak</strong> et <strong>Thomas Lefevre</strong>, la radio sera active du 18 au 24 mai 2026, dans le contexte du lancement de <em>La Saison Méditerranée</em>.
     </p>
     <p data-fr="Ces matériaux - pour la plupart sonores - pourront être utilisés bruts ou encore transformés (découpés, remixés, montés, etc.)"
        data-en="These materials — mostly audio — may be used as-is or transformed (cut, remixed, edited, etc.)">
@@ -503,7 +539,7 @@
       <span class="q-num">06</span>
       <label class="q-label" for="q6"
         data-fr="Où es-tu lorsque tu réponds à ce questionnaire ? (ville, pays, rive de la Méditerranée)"
-        data-en="Where are you when answering this form? (city, country, shore of the Mediterranean)">
+        data-en="Where are you when answering this form? (city, country, shore of the Mediterranean sea)">
         Où es-tu lorsque tu réponds à ce questionnaire ? (ville, pays, rive de la Méditerranée)
       </label>
     </div>
@@ -520,9 +556,9 @@
     <div class="q-header">
       <span class="q-num">07</span>
       <span class="q-label"
-        data-fr='Reprends les six questions précédentes en faisant une courte présentation audio ("Bonjour, je m'appelle ***** j'ai ***** ans et je suis né à *****, aujourd'hui je vis à *****"), c'est toi qui choisis les informations que tu veux transmettre.'
-        data-en='Using the six previous questions, make a short audio introduction ("Hello, my name is *****, I am ***** years old, I was born in *****, today I live in *****") — you choose what to share.'>
-        Reprends les six questions précédentes en faisant une courte présentation audio ("Bonjour, je m'appelle ***** j'ai ***** ans et je suis né à *****, aujourd'hui je vis à *****"), c'est toi qui choisis les informations que tu veux transmettre.
+        data-fr='Reprends les six questions précédentes en faisant une courte présentation audio ("Bonjour, je m'appelle ***** j'ai ** ans et je suis né à *****, aujourd'hui je vis à *****"), c'est toi qui choisis les informations que tu veux transmettre.'
+        data-en='Using the six previous questions, make a short audio introduction ("Hello, my name is *****, I am ** years old, I was born in *****, today I live in *****") — you choose what to share.'>
+        Reprends les six questions précédentes en faisant une courte présentation audio ("Bonjour, je m'appelle ***** j'ai ** ans et je suis né à *****, aujourd'hui je vis à *****"), c'est toi qui choisis les informations que tu veux transmettre.
       </span>
     </div>
     <div class="audio-widget" id="widget-7">
@@ -551,7 +587,7 @@
       <span class="q-num">08</span>
       <span class="q-label"
         data-fr="Si la Méditerranée pouvait parler, qu'est-ce qu'elle dirait ?"
-        data-en="If the Mediterranean could speak, what would it say?">
+        data-en="If the Mediterranean sea could speak, what would it say?">
         Si la Méditerranée pouvait parler, qu'est-ce qu'elle dirait ?
       </span>
     </div>
@@ -608,7 +644,7 @@
       <span class="q-num">10</span>
       <label class="q-label" for="q10"
         data-fr="Peux-tu nous envoyer un lien vers une musique qui t'évoque la Méditerranée ?"
-        data-en="Can you send us a link to a song that evokes the Mediterranean for you?">
+        data-en="Can you send us a link to a song that evokes the Mediterranean sea for you?">
         Peux-tu nous envoyer un lien vers une musique qui t'évoque la Méditerranée ?
       </label>
     </div>
@@ -676,7 +712,7 @@
       <div class="rec-controls">
         <button class="btn-rec start" onclick="startRec(13)" id="rec-start-13">
           <span class="rec-dot"></span>
-          <span data-fr="Enregistrer audio" data-en="Record audio">Enregistrer audio</span>
+          <span data-fr="Enregistrer" data-en="Record audio">Enregistrer</span>
         </button>
         <button class="btn-rec stop" onclick="stopRec(13)" id="rec-stop-13" disabled>
           <span data-fr="Arrêter" data-en="Stop">Arrêter</span>
@@ -704,8 +740,8 @@
       <span class="q-num">14</span>
       <span class="q-label"
         data-fr='Pour le jingle de notre radio, peux-tu prononcer la phrase suivante dans la langue de ton choix : "Radio EPHEM7RE, la radio qui fait parler la Méditerranée"'
-        data-en='For our radio jingle, can you say the following phrase in the language of your choice: "Radio EPHEM7RE, la radio qui fait parler la Méditerranée"'>
-        Pour le jingle de notre radio, peux-tu prononcer la phrase suivante dans la langue de ton choix : <em style="color:var(--blue)">"Radio EPHEM7RE, la radio qui fait parler la Méditerranée"</em>
+        data-en='For our radio jingle, can you say the following phrase in the language of your choice: "Radio EPHEM7RE, the radio that lets the Mediterranean Sea speak"'>
+        Pour le jingle de notre radio, peux-tu prononcer la phrase suivante dans la langue de ton choix : <em style="color:rgba(255,255,255,0.55)">"Radio EPHEM7RE, la radio qui fait parler la Méditerranée"</em>
       </span>
     </div>
     <div class="audio-widget" id="widget-14">
@@ -802,7 +838,12 @@ function setLang(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-fr]').forEach(el => {
-    el.textContent = el.getAttribute('data-' + lang);
+    const val = el.getAttribute('data-' + lang);
+    if (el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'DIV') {
+      el.innerHTML = val;
+    } else {
+      el.textContent = val;
+    }
   });
   document.querySelectorAll('[data-fr-placeholder]').forEach(el => {
     el.placeholder = el.getAttribute('data-' + lang + '-placeholder');
@@ -904,7 +945,48 @@ document.querySelectorAll('.file-upload-area').forEach(area => {
   });
 });
 
-// Choice selection
+// ── Sine wave background ──────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('wave-canvas');
+  const ctx = canvas.getContext('2d');
+  let phaseH = 0; // horizontal phase (moves waves left/right)
+  let phaseV = 0; // vertical phase  (moves waves up/down)
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 3;
+
+    const spacing = 60;
+    const amplitude = 28;
+    const wavelength = 320;
+    const numWaves = Math.ceil(canvas.height / spacing) + 2;
+
+    for (let i = 0; i < numWaves; i++) {
+      // baseY uses a smooth sine so vertical drift never jumps
+      const baseY = i * spacing + Math.sin(phaseV * 0.03 + i * 0.5) * 8;
+      ctx.beginPath();
+      for (let x = 0; x <= canvas.width; x += 2) {
+        const y = baseY + Math.sin((x / wavelength) * Math.PI * 2 + (i * 0.7) - phaseH) * amplitude;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    phaseH += 0.018; // drift to the right
+    phaseV += 0.6;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
 function toggleChoice(label, name, mode) {
   document.querySelectorAll(`[name="${name}"]`).forEach(r => r.closest('.choice-item').classList.remove('selected'));
   label.classList.add('selected');
