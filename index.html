@@ -13,7 +13,7 @@
     --black: #0d0d0d;
     --white: #ffffff;
     --mid: rgba(0,0,0,0.25);
-    --rec: #f0240f;
+    --rec: #ed3c3c;
     --bg: #3fabff;
   }
 
@@ -80,14 +80,14 @@
     border-radius: 8px;
     overflow: hidden;
     border: 3px solid rgba(255,255,255,0.3);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.25), 5px 5px 0 var(--pink);
+    box-shadow: 0 8px 40px rgba(0,0,0,1), 5px 5px 0 var(--pink);
   }
   .header-logo img { width: 100%; display: block; }
 
   .header-sub {
     font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    letter-spacing: 0.4em;
+    font-size: 24px;
+    letter-spacing: 0.33em;
     color: var(--pink);
     margin-top: 4px;
     position: relative;
@@ -143,7 +143,7 @@
     min-width: 32px;
   }
   .q-label {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.55;
     color: var(--white);
@@ -151,8 +151,8 @@
 
   input[type="text"], input[type="date"], textarea, select {
     width: 100%;
-    background: rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(0,144,255,1);
+    border: 1px solid rgba(255,255,255,0.4);
     border-radius: 6px;
     color: var(--white);
     font-family: 'Space Mono', monospace;
@@ -166,7 +166,7 @@
     border-color: var(--pink);
     background: rgba(0,0,0,0.3);
   }
-  input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+  input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.4); }
   textarea { resize: vertical; min-height: 80px; }
 
   /* Date input */
@@ -418,7 +418,7 @@
   <div class="header-logo">
     <img src="visuel.jpg" alt="Radio EPHEM7RE">
   </div>
-  <p class="header-sub" data-fr="Participation Libre 🕊" data-en="Open Participation 🕊">Participation Libre 🕊</p>
+  <p class="header-sub" data-fr="Participation Libre 🕊" data-en="Open Participation 🕊"><strong>Participation Libre 🕊</strong>strong></p>
 </header>
 
 <div class="intro">
@@ -676,7 +676,7 @@
       <div class="rec-controls">
         <button class="btn-rec start" onclick="startRec(13)" id="rec-start-13">
           <span class="rec-dot"></span>
-          <span data-fr="Enregistrer audio" data-en="Record audio">Enregistrer audio</span>
+          <span data-fr="Enregistrer" data-en="Record audio">Enregistrer</span>
         </button>
         <button class="btn-rec stop" onclick="stopRec(13)" id="rec-stop-13" disabled>
           <span data-fr="Arrêter" data-en="Stop">Arrêter</span>
@@ -704,7 +704,7 @@
       <span class="q-num">14</span>
       <span class="q-label"
         data-fr='Pour le jingle de notre radio, peux-tu prononcer la phrase suivante dans la langue de ton choix : "Radio EPHEM7RE, la radio qui fait parler la Méditerranée"'
-        data-en='For our radio jingle, can you say the following phrase in the language of your choice: "Radio EPHEM7RE, la radio qui fait parler la Méditerranée"'>
+        data-en='For our radio jingle, can you say the following phrase in the language of your choice: "Radio EPHEM7RE, the radio that lets the Mediterranean Sea speak"'>
         Pour le jingle de notre radio, peux-tu prononcer la phrase suivante dans la langue de ton choix : <em style="color:var(--blue)">"Radio EPHEM7RE, la radio qui fait parler la Méditerranée"</em>
       </span>
     </div>
