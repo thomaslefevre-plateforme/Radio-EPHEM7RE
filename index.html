@@ -1133,7 +1133,7 @@ async function submitForm() {
   const statusEl = document.getElementById('upload-status');
   btn.disabled = true;
   statusEl.className = 'upload-status sending';
-  statusEl.innerHTML = '<span class="spinner"></span>' + (currentLang === 'fr' ? 'Envoi en cours… Ne quitte pas la pge, cela peut prendre quelques minutes.' : 'Sending… Please stay on the page, this may take a few minutes.');
+  statusEl.innerHTML = '<span class="spinner"></span>' + (currentLang === 'fr' ? 'Envoi en cours… Ne quitte pas la page, cela peut prendre quelques minutes.' : 'Sending… Please stay on the page, this may take a few minutes.');
 
   const folderName = getFolderName();
 
