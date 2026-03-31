@@ -857,7 +857,7 @@
           <input type="radio" name="q16" value="association">
           <span data-fr="Établissement / Partenaire (école, structure, association…) :" data-en="Institution / Collaborator (school, organisation, association…):">Établissement / Partenaire (école, structure, association…) :</span>
         </div>
-        <textarea id="q16-other-text" name="q16_association" rows="2" onclick="event.stopPropagation()"
+        <textarea id="q16-institution" name="q16_association" rows="2" onclick="event.stopPropagation()"
           style="margin-top:10px; width:100%;"
           data-fr-placeholder="Précise ta réponse…"
           data-en-placeholder="Please specify…"
@@ -1152,6 +1152,7 @@ async function submitForm() {
     suggestion: document.getElementById('q13').value,
     q14_texte: document.getElementById('q14-text').value,
     q16: document.querySelector('[name="q16"]:checked')?.value || '',
+    q16_association: document.getElementById('q16-institution').value,
     q16_autre: document.getElementById('q16-other-text').value,
     q17: document.querySelector('[name="q17"]:checked')?.value || '',
     q17_autre: document.getElementById('q17-other-text').value,
