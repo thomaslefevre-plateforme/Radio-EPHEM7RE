@@ -620,9 +620,9 @@
     <div class="q-header">
       <span class="q-num">08</span>
       <span class="q-label"
-        data-fr="Si tu le souhaites, peux-tu partager quelques éléments biographiques (parcours, activités, engagements…) ?"
-        data-en="If you wish, could you share a few biographical details (background, activities, commitments…)?">
-        Si tu le souhaites, peux-tu partager quelques éléments biographiques (parcours, activités, engagements…) ?
+        data-fr="Si tu le souhaites, partage-nous quelques éléments biographiques (parcours, activités, engagements…)"
+        data-en="If you wish, share a few biographical details (background, activities, commitments…)">
+        Si tu le souhaites, partage-nous quelques éléments biographiques (parcours, activités, engagements…)
       </span>
     </div>
     <div class="audio-widget" id="widget-8">
@@ -1133,7 +1133,7 @@ async function submitForm() {
   const statusEl = document.getElementById('upload-status');
   btn.disabled = true;
   statusEl.className = 'upload-status sending';
-  statusEl.innerHTML = '<span class="spinner"></span>' + (currentLang === 'fr' ? 'Envoi en cours… cela peut prendre quelques instants.' : 'Sending… this may take a moment.');
+  statusEl.innerHTML = '<span class="spinner"></span>' + (currentLang === 'fr' ? 'Envoi en cours… Ne quitte pas la pge, cela peut prendre quelques minutes.' : 'Sending… Please stay on the page, this may take a few minutes.');
 
   const folderName = getFolderName();
 
