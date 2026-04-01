@@ -854,7 +854,7 @@
     <div class="choices" id="q16-choices">
       <label class="choice-item" onclick="toggleChoice(this, 'q16', 'single')" style="flex-wrap:wrap; align-items:flex-start;">
         <div style="display:flex;align-items:center;gap:12px;width:100%;">
-          <input type="radio" name="q16" value="association">
+          <input type="radio" name="q16" value="institution">
           <span data-fr="Établissement / Partenaire (école, structure, association…) :" data-en="Institution / Collaborator (school, organisation, association…):">Établissement / Partenaire (école, structure, association…) :</span>
         </div>
         <textarea id="q16-institution" name="q16_association" rows="2" onclick="event.stopPropagation()"
@@ -941,7 +941,7 @@
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
 // REMPLACE cette URL par celle de ton Google Apps Script déployé
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypbgPbuTOSAtFb2S5R7DgIdma68G36kwzLoX4UPMEh0WTI_k7sQO_PdP4SCr2MDgv5Mw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHT06wICliUjgfeB4z4QiMY03SxEMf9URJNJH7mSEuMnbBQFRBUT-YL4z-RnOs_XapoQ/exec';
 // ──────────────────────────────────────────────────────────────
 
 let currentLang = 'fr';
@@ -1153,7 +1153,6 @@ async function submitForm() {
     musique_lien: document.getElementById('q11').value,
     suggestion: document.getElementById('q13').value,
     q12_texte: document.getElementById('q12-text').value,
-    q13_texte: document.getElementById('q13-text').value,
     q14_texte: document.getElementById('q14-text').value,
     q16: document.querySelector('[name="q16"]:checked')?.value || '',
     q16_association: document.getElementById('q16-institution').value,
