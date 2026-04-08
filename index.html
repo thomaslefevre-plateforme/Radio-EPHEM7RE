@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radio EPHEM7RE – Participation Libre</title>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --blue: #056ceb;
@@ -28,36 +29,58 @@
   }
 
   /* RTL support for Arabic */
-  html[dir="rtl"] .intro-box,
-  html[dir="rtl"] .q-label {
-    text-align: justify;
+  html[dir="rtl"] body {
+    font-family: 'Noto Sans Arabic', 'Space Mono', monospace;
   }
   html[dir="rtl"] .intro-box {
+    font-family: 'Noto Sans Arabic', 'Nunito', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: justify;
     border-left: none;
     border-right: 3px solid var(--pink);
     border-radius: 8px 0 0 8px;
+  }
+  html[dir="rtl"] .q-label {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    text-align: justify;
   }
   html[dir="rtl"] input[type="text"],
   html[dir="rtl"] input[type="date"],
   html[dir="rtl"] textarea,
   html[dir="rtl"] select {
+    font-family: 'Noto Sans Arabic', 'Space Mono', monospace;
     text-align: right;
     direction: rtl;
   }
-  html[dir="rtl"] .file-upload-text {
-    direction: rtl;
+  html[dir="rtl"] .lang-btn,
+  html[dir="rtl"] .contact-btn {
+    font-family: 'Noto Sans Arabic', 'Space Mono', monospace;
+  }
+  html[dir="rtl"] .btn-rec,
+  html[dir="rtl"] .rec-status {
+    font-family: 'Noto Sans Arabic', 'Space Mono', monospace;
   }
   html[dir="rtl"] .btn-submit {
+    font-family: 'Noto Sans Arabic', 'Syne', sans-serif;
     direction: rtl;
   }
   html[dir="rtl"] .section-label {
+    font-family: 'Noto Sans Arabic', 'Syne', sans-serif;
     text-align: right;
   }
   html[dir="rtl"] .header-sub {
+    font-family: 'Noto Sans Arabic', 'Syne', sans-serif;
     direction: rtl;
   }
   html[dir="rtl"] .success-msg {
+    font-family: 'Noto Sans Arabic', 'Nunito', sans-serif;
     direction: rtl;
+  }
+  html[dir="rtl"] .file-upload-text {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    direction: rtl;
+  }
+  html[dir="rtl"] .choice-item {
+    font-family: 'Noto Sans Arabic', sans-serif;
   }
 
   /* Language switcher */
@@ -69,6 +92,39 @@
     gap: 0;
     border-bottom-left-radius: 8px;
     overflow: hidden;
+  }
+  .contact-bar {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 100;
+    display: flex;
+    gap: 0;
+    border-bottom-right-radius: 8px;
+    overflow: hidden;
+  }
+  .contact-btn {
+    background: rgba(0,0,0,0.25);
+    color: var(--white);
+    border: none;
+    padding: 8.9px 20.1px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13.4px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .contact-btn:hover { background: rgba(0,0,0,0.35); }
+  /* RTL: swap lang-bar to left, contact-bar to right */
+  html[dir="rtl"] .lang-bar {
+    right: auto; left: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 8px;
+  }
+  html[dir="rtl"] .contact-bar {
+    left: auto; right: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 8px;
   }
   .lang-btn {
     background: rgba(0,0,0,0.25);
@@ -105,7 +161,7 @@
   }
 
   /* All content above canvas */
-  .lang-bar, header, .intro, .form-wrap, .success-screen, .progress-bar-wrap {
+  .lang-bar, .contact-bar, header, .intro, .form-wrap, .success-screen, .progress-bar-wrap {
     position: relative;
     z-index: 1;
   }
@@ -514,6 +570,11 @@
   <button class="lang-btn" onclick="setLang('ar')" id="btn-ar">عربي</button>
 </div>
 
+<div class="contact-bar">
+  <a class="contact-btn" href="mailto:emilie.hanak@laplateforme.io" id="btn-contact"
+    data-fr="✉ Contact" data-en="✉ Contact" data-ar="✉ تواصل">✉ Contact</a>
+</div>
+
 <header class="header">
   <div class="header-waves"></div>
   <div class="header-logo">
@@ -569,9 +630,9 @@
     <div class="q-header">
       <span class="q-num">01</span>
       <label class="q-label" for="q1" data-fr="Prénom" data-en="First name"
-        data-ar="الاسم الأول">Prénom</label>
+        data-ar="الاسم">Prénom</label>
     </div>
-    <input type="text" id="q1" name="prenom" data-fr-placeholder="Ton prénom" data-en-placeholder="Your first name" data-ar-placeholder="اسمك الأول" placeholder="Ton prénom">
+    <input type="text" id="q1" name="prenom" data-fr-placeholder="Ton prénom" data-en-placeholder="Your first name" data-ar-placeholder="اسمك" placeholder="Ton prénom">
   </div>
 
   <!-- Q2 Nom -->
@@ -579,9 +640,9 @@
     <div class="q-header">
       <span class="q-num">02</span>
       <label class="q-label" for="q2" data-fr="Nom" data-en="Last name"
-        data-ar="اسم العائلة">Nom</label>
+        data-ar="اللقب">Nom</label>
     </div>
-    <input type="text" id="q2" name="nom" data-fr-placeholder="Ton nom de famille" data-en-placeholder="Your last name" data-ar-placeholder="اسم عائلتك" placeholder="Ton nom de famille">
+    <input type="text" id="q2" name="nom" data-fr-placeholder="Ton nom de famille" data-en-placeholder="Your last name" data-ar-placeholder="لقبك" placeholder="Ton nom de famille">
   </div>
 
   <!-- Q3 Date de naissance -->
@@ -589,9 +650,9 @@
     <div class="q-header">
       <span class="q-num">03</span>
       <label class="q-label" for="q3" data-fr="Date de naissance (jj/mm/aaaa)" data-en="Date of birth (dd/mm/yyyy)"
-        data-ar="تاريخ الميلاد (يي/شش/سسسس)">Date de naissance (jj/mm/aaaa)</label>
+        data-ar="تاريخ الولادة (سنة/شهر/يوم)">Date de naissance (jj/mm/aaaa)</label>
     </div>
-    <input type="text" id="q3" name="naissance_date" class="date-field" data-fr-placeholder="jj/mm/aaaa" data-en-placeholder="dd/mm/yyyy" data-ar-placeholder="يي/شش/سسسس" placeholder="jj/mm/aaaa" maxlength="10">
+    <input type="text" id="q3" name="naissance_date" class="date-field" data-fr-placeholder="jj/mm/aaaa" data-en-placeholder="dd/mm/yyyy" data-ar-placeholder="سنة/شهر/يوم" placeholder="jj/mm/aaaa" maxlength="10">
   </div>
 
   <!-- Q4 Lieu de naissance -->
@@ -599,7 +660,7 @@
     <div class="q-header">
       <span class="q-num">04</span>
       <label class="q-label" for="q4" data-fr="Lieu de naissance" data-en="Place of birth"
-        data-ar="مكان الميلاد">Lieu de naissance</label>
+        data-ar="مكان الولادة">Lieu de naissance</label>
     </div>
     <input type="text" id="q4" name="naissance_lieu" data-fr-placeholder="Ville, pays" data-en-placeholder="City, country" data-ar-placeholder="المدينة، البلد" placeholder="Ville, pays">
   </div>
