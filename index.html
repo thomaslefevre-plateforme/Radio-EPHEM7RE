@@ -118,6 +118,7 @@
     text-decoration: none;
   }
   .contact-btn:hover { background: rgba(0,0,0,0.35); }
+  .contact-btn .contact-icon { font-size: 26px; vertical-align: middle; line-height: 1; position: relative; top: -4px; margin-right: 6px; }
   /* RTL: swap sides */
   html[dir="rtl"] .top-bar {
     flex-direction: row-reverse;
@@ -571,7 +572,7 @@
 <div class="top-bar">
   <div class="contact-bar">
     <button class="contact-btn" onclick="copyContact()" id="btn-contact"
-      data-fr="✉ Contact" data-en="✉ Contact" data-ar="✉ تواصل">✉ Contact</button>
+      data-fr="✉ Contact" data-en="✉ Contact" data-ar="✉ تواصل"><span class="contact-icon">✉</span> Contact</button>
   </div>
   <div class="lang-bar">
     <button class="lang-btn active" onclick="setLang('fr')" id="btn-fr">FR</button>
@@ -1138,6 +1139,13 @@ function setLang(lang) {
     if (val === null) return;
     if (el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'DIV') {
       el.innerHTML = val;
+    } else if (el.id === 'btn-contact') {
+      const iconMatch = val.match(/^(✉)\s*(.*)/);
+      if (iconMatch) {
+        el.innerHTML = '<span class="contact-icon">' + iconMatch[1] + '</span> ' + iconMatch[2];
+      } else {
+        el.textContent = val;
+      }
     } else {
       el.textContent = val;
     }
